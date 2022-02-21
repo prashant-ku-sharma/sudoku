@@ -1,38 +1,213 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  max-width: 100vw;
   min-height: 100vh;
+  display: grid;
+  grid-template-columns: 450px 260px;
+  justify-content: space-around;
+  padding: 40px 0;
+  text-align: center;
+  color: white;
+  background-color: #0a1929;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.App > section:nth-of-type(1) {
+  position: relative;
+}
+
+.sudoku-board {
+  width: 450px;
+  height: 450px;
+  margin: 50px auto;
+  background-color: #ddd;
+}
+
+.board-cell {
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  text-align: center;
+  background-color: transparent;
+  border: 1px solid #777;
+}
+
+.board-cell:focus {
+  border: 2px solid rgb(48, 48, 182);
+  outline: none;
+}
+
+.btns {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.btns button {
+  width: 260px;
+  margin: 20px 0;
+  padding: 15px;
+  font-size: 24px;
+  color: #ddd;
+  background-color: #2827cc;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.btns button:hover {
+  background-color: #1b98f5;
+}
+
+.user-result {
+  width: 100px;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  margin-left: -50px;
+  text-align: center;
+}
+.green {
+  color: green;
+}
+.red {
+  color: red;
+}
+
+.loader {
+  width: 100px;
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  top: 50px;
+  left: 50%;
+  margin-left: -50px;
+  text-align: center;
+  color: #80c99e;
+}
+
+.hide {
+  display: none;
+}
+
+.loader span {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  background-color: #90d3ac;
+  border-radius: 50%;
+}
+.loader span:nth-last-of-type(1) {
+  animation: bouncy 1s ease-in-out infinite;
+}
+.loader span:nth-last-of-type(2) {
+  animation: bouncy 1s ease-in-out 0.33s infinite;
+}
+.loader span:nth-last-of-type(3) {
+  animation: bouncy 1s ease-in-out 0.66s infinite;
+}
+@keyframes bouncy {
+  0%,
+  75%,
+  100% {
+    transform: translateY(0);
   }
-  to {
-    transform: rotate(360deg);
+  25% {
+    transform: translateY(-10px);
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .App {
+    grid-template-columns: 450px;
+    padding: 30px;
+  }
+
+  .btns {
+    height: 50px;
+    flex-direction: row;
+  }
+
+  .btns button {
+    width: 100px;
+    margin: 0 10px;
+    padding: 10px;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .App {
+    grid-template-columns: 360px;
+  }
+
+  .sudoku-board {
+    width: 360px;
+    height: 360px;
+  }
+
+  .board-cell {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .App {
+    grid-template-columns: 270px;
+  }
+  .App > section:nth-of-type(1) {
+    height: 350px;
+  }
+
+  .sudoku-board {
+    width: 270px;
+    height: 270px;
+  }
+
+  .board-cell {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+
+  .btns {
+    height: 50px;
+    margin-top: -80px;
+    flex-direction: row;
+  }
+
+  .btns button {
+    width: 100px;
+    margin: 0 5px;
+    padding: 5px 8px;
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 270px) {
+  .App {
+    grid-template-columns: 225px;
+  }
+  .App > section:nth-of-type(1) {
+    height: 300px;
+  }
+
+  .sudoku-board {
+    width: 225px;
+    height: 225px;
+  }
+
+  .board-cell {
+    width: 25px;
+    height: 25px;
+    font-size: 16px;
   }
 }
