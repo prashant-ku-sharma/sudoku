@@ -1,10 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import { BoardContext } from "./SudokuContextHelpers/Board";
 import "./App.css";
+import { TimeTravelContext } from "./SudokuContextHelpers/TimeTravel";
+import undo from './images/undo.png';
+import redo from './images/redo.png';
 
-let initialBoard = [];
 function App() {
-  const [board, setBoard] = useState(initialBoard);
   const {
     isChecking,
     setIsChecking,
@@ -14,11 +15,21 @@ function App() {
     getRandomBoard,
     solve,
   } = useContext(BoardContext);
+  const {
+    board,
+    setBoard,
+    timeTravel,
+    setTimeTravel,
+    stateNumber,
+    setStateNumber,
+    handleUndo,
+    handleRedo,
+  } = useContext(TimeTravelContext);
 
   useEffect(() => {
     getRandomBoard().then((res) => {
       setBoard(res.board);
-      initialBoard = res.board;
+      setTimeTravel({ ...timeTravel, [stateNumber]: res.board });
     });
   }, []);
 
@@ -30,13 +41,15 @@ function App() {
       duplicate[row][col] = value;
     }
     setBoard(duplicate);
+    setStateNumber(stateNumber + 1);
+    setTimeTravel({ ...timeTravel, [stateNumber + 1]: duplicate });
   };
 
-  const check = () => compareBoard(initialBoard, board);
-  const getSolution = () => setBoard(solve(initialBoard));
+  const check = () => compareBoard(timeTravel["0"], board);
+  const getSolution = () => setBoard(solve(timeTravel["0"]));
   const reset = () => {
     setIsChecking(false);
-    setBoard(initialBoard);
+    setBoard(timeTravel["0"]);
   };
 
   return (
@@ -47,7 +60,7 @@ function App() {
           style={{ display: isChecking ? "inline-block" : "none" }}
           className={solvedByUser ? "user-result green" : "user-result red"}
         >
-          {solvedByUser ? "You win!" : "You lose!"}
+          {solvedByUser ? "You are a genius😊" : "Oops😯, try again👍!"}
         </p>
         <p className={loader ? "loader" : "hide"}>
           Loading<span></span>
@@ -73,9 +86,15 @@ function App() {
         </div>
       </section>
       <section className="btns">
-        <button onClick={check}>Check</button>
-        <button onClick={getSolution}>Solution</button>
-        <button onClick={reset}>Reset</button>
+        <div className="time-travel">
+          <button onClick={handleUndo}><img src={undo} alt="undo" /></button>
+          <button onClick={handleRedo}><img src={redo} alt="redo" /></button>
+        </div>
+        <div>
+          <button onClick={check}>Check</button>
+          <button onClick={getSolution}>Solution</button>
+          <button onClick={reset}>Reset</button>
+        </div>
       </section>
     </div>
   );

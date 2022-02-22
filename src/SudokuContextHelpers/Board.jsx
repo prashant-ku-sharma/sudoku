@@ -28,7 +28,8 @@ const BoardContextProvider = ({ children }) => {
       setLoader(false);
       return result;
     } catch (error) {
-      console.log(`Sorry, try to refresh the page!`);
+      setLoader(true);
+      console(`Sorry, try to refresh the page!`);
     }
     return BackupBoard;
   }
