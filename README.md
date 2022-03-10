@@ -1,8 +1,6 @@
 # THE SUDOKU SOLVER - BY PRASHANT SHARMA
 
 #### SUDOKU is a logical, combinatorial number-placement puzzle.
-
-## Usage
 <a href="https://prashant-sharma-tws.github.io/sudoku/">Click here to play</a>
 
 ## Features
