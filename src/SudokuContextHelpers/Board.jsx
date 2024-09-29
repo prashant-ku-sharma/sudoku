@@ -21,17 +21,23 @@ const BoardContextProvider = ({ children }) => {
   async function getRandomBoard() {
     try {
       setLoader(true);
-      const response = await fetch(
-        `https://sugoku.herokuapp.com/board?difficulty=random`
-      );
+      const response = await fetch(`https://sudoku-api.vercel.app/api/dosuku`);
       const result = await response.json();
       setLoader(false);
-      return result;
+      const board = {
+        board:
+          (result &&
+            result.newboard &&
+            result.newboard.grids &&
+            result.newboard.grids[0].value) ||
+          BackupBoard,
+      };
+      return board;
     } catch (error) {
-      setLoader(true);
-      console(`Sorry, try to refresh the page!`);
+      setLoader(false);
+      console.error(`Sorry, try to refresh the page!`);
+      return { board: BackupBoard };
     }
-    return BackupBoard;
   }
 
   // sudoku-solver
@@ -126,6 +132,7 @@ const BoardContextProvider = ({ children }) => {
 
   const value = {
     solvedByUser,
+    setSolvedByUser,
     loader,
     setLoader,
     isChecking,

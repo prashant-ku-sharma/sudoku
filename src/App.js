@@ -2,8 +2,8 @@ import { useEffect, useState, useContext } from "react";
 import { BoardContext } from "./SudokuContextHelpers/Board";
 import "./App.css";
 import { TimeTravelContext } from "./SudokuContextHelpers/TimeTravel";
-import undo from './images/undo.png';
-import redo from './images/redo.png';
+import undo from "./images/undo.png";
+import redo from "./images/redo.png";
 
 function App() {
   const {
@@ -87,8 +87,12 @@ function App() {
       </section>
       <section className="btns">
         <div className="time-travel">
-          <button onClick={handleUndo}><img src={undo} alt="undo" /></button>
-          <button onClick={handleRedo}><img src={redo} alt="redo" /></button>
+          <button onClick={handleUndo}>
+            <img src={undo} alt="undo" />
+          </button>
+          <button onClick={handleRedo}>
+            <img src={redo} alt="redo" />
+          </button>
         </div>
         <div>
           <button onClick={check}>Check</button>
